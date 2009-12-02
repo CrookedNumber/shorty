@@ -1,0 +1,4 @@
+; $Id$
+name = Shorty
+description = Turn your drupal site into a link shortening service
+core = 6.x

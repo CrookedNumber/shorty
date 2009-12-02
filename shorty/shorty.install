@@ -1,0 +1,38 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_install().
+ */
+function shorty_install() {
+  drupal_install_schema('shorty');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function shorty_uninstall() {
+  //Use schema API to delete database table. 
+  drupal_uninstall_schema('shorty');
+  
+  //Clean up our entry in the variables table. 
+  variable_del('shorty_chars');
+  variable_del('shorty_type'); 
+}
+
+/** 
+*Implementation of hook_schema(). 
+*/
+function shorty_schema() {
+  $schema['shorty_links'] = array(
+    'fields' => array(
+      'token' => array('type' => 'varchar', 'length' => 8, 'not null' => TRUE),
+      'url'   => array('type' => 'varchar', 'length' => 256, 'not null' => TRUE),
+    ),
+    'primary key' => array('token'),
+    'indexes' => array(
+      'token' => array('token'),
+    ),
+  );
+  return $schema;
+}
